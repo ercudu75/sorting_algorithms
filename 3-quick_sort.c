@@ -9,7 +9,7 @@
 void quick_sort(int *array, size_t size)
 {
 	if (size < 2 || !array)
-        return;
+		return;
 
 	quicksort(array, 0, size - 1, size);
 }
@@ -78,7 +78,7 @@ void swap(int *array, size_t a, size_t b)
 {
 	int temp;
 
-	temp= array[a];
+	temp = array[a];
 	array[a] = array[b];
 	array[b] = temp;
 }
