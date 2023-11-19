@@ -34,6 +34,6 @@ void swap(int *array, size_t a, size_t b);
 
 /*Cocktail shaker sort functions*/
 void cocktail_sort_list(listint_t **list);
-void swap_nodes(listint_t **list, listint_t *a, listint_t *b);
+void swap_nodes(listint_t *a, listint_t *b);
 
 #endif

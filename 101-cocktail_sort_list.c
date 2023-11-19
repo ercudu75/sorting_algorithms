@@ -1,28 +1,17 @@
 #include "sort.h"
 /**
  * swap_nodes - Swaps positions of two nodes in a doubly linked list.
- * @list: Double pointer to the list's head.
  * @a: First node to be swapped.
  * @b: Second node to be swapped.
  */
-void swap_nodes(listint_t **list, listint_t *a, listint_t *b)
+void swap_nodes(listint_t *a, listint_t *b)
 {
-	if (a == NULL || b == NULL || a == b)
-		return;
+	int tmp;
 
-	if (a->prev)
-		a->prev->next = b;
-	else
-		*list = b;
-
-	if (b->next && b->next != a)
-		b->next->prev = a;
-
-	a->next = b->next;
-	b->prev = a->prev;
-
-	a->prev = b;
-	b->next = a;
+	/*type casting: casting away "const" to allow modification of n*/
+	tmp = *((int *)&(a->n));
+	*((int *)&(a->n)) = *((int *)&(b->n));
+	*((int *)&(b->n)) = tmp;
 }
 /**
  * cocktail_sort_list - Sorts a d-linked list-the cocktail sort algorithm.
@@ -35,34 +24,34 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *end = NULL;
 	listint_t *current;
 
-	if (list == NULL || *list == NULL || (*list)->next == NULL)
+	if (*list == NULL)
 		return;
-
 	do {
 		swapped = 0;
 		current = *list;
-		/* Forward iteration */
-		while (current != end && current->next != NULL)
+
+		/*forward iteration*/
+		while (current->next != end)
 		{
 			if (current->n > current->next->n)
 			{
-				swap_nodes(list, current, current->next);
+				swap_nodes(current, current->next);
 				print_list(*list);
 				swapped = 1;
 			}
 			current = current->next;
 		}
 		end = current;
-		/* Check if the list is sorted */
+		/*check the list if sorted*/
 		if (!swapped)
 			break;
-		/* Backward iteration */
+		/*Backward iteration*/
 		swapped = 0;
 		while (current != start)
 		{
 			if (current->n < current->prev->n)
 			{
-				swap_nodes(list, current, current->prev);
+				swap_nodes(current, current->prev);
 				print_list(*list);
 				swapped = 1;
 			}
